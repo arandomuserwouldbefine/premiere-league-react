@@ -1,119 +1,57 @@
-import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { Menu, X, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Trophy, Calendar, Users } from "lucide-react"
 
 export function Header() {
-  const [location] = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Dashboard", href: "/dashboard" },
-    { name: "Contact", href: "/contact" },
-  ];
-
-  const isActiveRoute = (href: string) => {
-    if (href === "/") {
-      return location === "/";
-    }
-    return location.startsWith(href);
-  };
-
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo and Brand */}
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center">
-              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                <Zap className="text-white w-4 h-4" />
-              </div>
-              <span className="ml-3 text-xl font-semibold text-gray-900">
-                ReactVite
-              </span>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:ml-8 md:flex md:space-x-8">
-              {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
-                  <a
-                    className={`py-2 px-1 text-sm font-medium border-b-2 transition-colors ${
-                      isActiveRoute(item.href)
-                        ? "text-blue-600 border-blue-600"
-                        : "text-gray-500 hover:text-gray-700 border-transparent hover:border-gray-300"
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </Link>
-              ))}
-            </nav>
+    <div className="relative">
+      {/* Main Header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-900 border border-teal-700/50 rounded-3xl p-6 sm:p-8 md:p-12 text-center backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-transparent to-teal-400/10"></div>
+        <div className="relative z-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div className="p-2 sm:p-3 bg-emerald-500/20 rounded-2xl border border-emerald-400/30">
+              <Trophy className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-emerald-400" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-emerald-100 to-teal-100 bg-clip-text text-transparent leading-tight">
+              Premier League Analytics
+            </h1>
           </div>
+          <p className="text-sm sm:text-lg md:text-xl text-teal-200 mb-6 sm:mb-8 font-medium px-2">
+            Advanced Fantasy Premier League Platform • 2025/26 Season
+          </p>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            </Button>
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-              Get Started
-            </Button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </Button>
+          {/* Status Banner */}
+          <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 bg-teal-800/60 backdrop-blur-sm border border-teal-600/40 rounded-2xl px-4 sm:px-6 py-3 sm:py-4">
+            <div className="flex items-center gap-2">
+              <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+              <span className="text-xs sm:text-sm font-semibold text-white">PRE-SEASON</span>
+            </div>
+            <div className="hidden sm:block w-px h-4 bg-teal-600"></div>
+            <div className="flex items-center gap-2 text-teal-100">
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="text-xs sm:text-sm font-medium">Season starts August 17, 2025</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navigation.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <a
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    isActiveRoute(item.href)
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              </Link>
-            ))}
+      {/* Quick Stats Bar */}
+      <div className="mt-4 sm:mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {[
+          { label: "Total Teams", value: "20", icon: Users },
+          { label: "Current GW", value: "16/38", icon: Calendar },
+          { label: "Leader Points", value: "0", icon: Trophy },
+          { label: "Days to Kickoff", value: "7", icon: Calendar },
+        ].map((stat, index) => (
+          <div
+            key={index}
+            className="bg-gradient-to-br from-slate-800 to-slate-900 border border-teal-700/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center backdrop-blur-sm hover:from-teal-900/50 hover:to-slate-900 hover:border-teal-600/50 transition-all duration-300 group"
+          >
+            <stat.icon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-400 mx-auto mb-2 group-hover:text-emerald-300 transition-colors" />
+            <div className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1">{stat.value}</div>
+            <div className="text-xs sm:text-sm text-slate-300 font-medium">{stat.label}</div>
           </div>
-        </div>
-      )}
-    </header>
-  );
+        ))}
+      </div>
+    </div>
+  )
 }

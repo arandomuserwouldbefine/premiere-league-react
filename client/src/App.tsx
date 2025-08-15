@@ -1,43 +1,19 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import Home from "@/pages/home";
-import About from "@/pages/about";
-import Dashboard from "@/pages/dashboard";
-import Contact from "@/pages/contact";
-import NotFound from "@/pages/not-found";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/contact" component={Contact} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+import { useState } from "react";
+import { Header } from "./components/header"
+import { NavigationTabs } from "./components/navigation-tabs";
+import { ContentSections } from "./components/content-sections";
 
 function App() {
+  const [activeTab, setActiveTab] = useState("news");
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1">
-            <Router />
-          </main>
-          <Footer />
-        </div>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12 space-y-8 sm:space-y-12 md:space-y-16 max-w-7xl">
+        <Header />
+        <NavigationTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <ContentSections activeTab={activeTab} />
+      </div>
+    </div>
+  )
 }
 
-export default App;
+export default App
